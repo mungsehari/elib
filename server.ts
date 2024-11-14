@@ -1,8 +1,10 @@
 import app from "./src/app";
+import { config } from "./src/config/config";
 const startServer = () => {
-  const post = process.env.PORT || 3000;
-  app.listen(post, () => {
-    console.log(`server is running on port ${post}`);
+  console.log("PORT: ", config.port);
+  const port = config.port;
+  app.listen(port, () => {
+    console.log(`server is running on port ${port}`);
   });
 };
 
