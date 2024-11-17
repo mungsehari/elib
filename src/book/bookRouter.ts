@@ -1,7 +1,8 @@
 import path from "node:path";
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import {
   createBook,
+  deleteBook,
   getSingleBook,
   listBooks,
   updateBook,
@@ -42,4 +43,16 @@ bookRouter.patch(
 
 bookRouter.get("/", listBooks);
 bookRouter.get("/:bookId", getSingleBook);
+bookRouter.delete(
+  "/:bookId",
+  authenticate,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await deleteBook(req, res, next);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export default bookRouter;
