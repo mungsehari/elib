@@ -1,16 +1,17 @@
 import path from "node:path";
 import fs from "node:fs";
 import { NextFunction, Request, Response } from "express";
-import cloudinary from "../config/cloudinary";
+
 import createHttpError from "http-errors";
 import bookModel from "./bookModel";
+import cloudinary from "../config/cloudinary";
 
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   const { title, genre } = req.body;
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-  const coverImgaseMimeType = files.converImgae[0].mimetype.split("/").at(-1);
+  const coverImgaseMimeType = files.coverImage[0].mimetype.split("/").at(-1);
 
-  const fileName = files.converImgae[0].filename;
+  const fileName = files.coverImage[0].filename;
 
   const filePath = path.resolve(
     __dirname,
@@ -47,7 +48,7 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
       title,
       genre,
       author: "673819fea87420e3243c48f5",
-      converImgae: uploadResult.secure_url,
+      coverImage: uploadResult.secure_url,
       file: bookFileUploadResult.secure_url,
     });
     // delete file
