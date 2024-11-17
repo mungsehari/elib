@@ -12,7 +12,7 @@ const bookSchema = new mongoose.Schema<Book>(
       ref: "User",
       required: true,
     },
-    converImgae: {
+    coverImage: {
       type: String,
       required: true,
     },
